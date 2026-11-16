@@ -4,8 +4,15 @@
 // in de app staan, en een app-bestand kan iedereen uitpakken.
 
 import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
-export const API_URL = process.env.EXPO_PUBLIC_API_URL;
+// We werken in de simulator. Die bereikt de Laravel-server op je laptop via:
+//   Android-emulator: 10.0.2.2 (betekent "de computer waarop de emulator draait")
+//   iOS-simulator (alleen op een Mac): localhost
+// Ander adres nodig? Zet EXPO_PUBLIC_API_URL in app/.env (zie .env.example).
+export const API_URL =
+  process.env.EXPO_PUBLIC_API_URL ||
+  (Platform.OS === 'android' ? 'http://10.0.2.2:8000/api' : 'http://localhost:8000/api');
 const TOKEN_SLEUTEL = 'auth_token';
 const TIMEOUT_MS = 100_000; // AI-antwoorden kunnen even duren
 
@@ -28,10 +35,6 @@ export class ApiFout extends Error {
 }
 
 async function verzoek(methode, pad, body) {
-  if (!API_URL) {
-    throw new ApiFout('EXPO_PUBLIC_API_URL ontbreekt. Maak een .env-bestand (zie .env.example).', 0);
-  }
-
   const headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
   const opgeslagenToken = await token.ophalen();
   if (opgeslagenToken) headers.Authorization = `Bearer ${opgeslagenToken}`;
@@ -51,7 +54,7 @@ async function verzoek(methode, pad, body) {
     throw new ApiFout(
       e.name === 'AbortError'
         ? 'Het duurde te lang. Probeer het opnieuw.'
-        : `Geen verbinding met de server (${API_URL}). Draait Laravel en zit je op hetzelfde netwerk?`,
+        : `Geen verbinding met de server (${API_URL}). Draait php artisan serve op poort 8000?`,
       0,
     );
   } finally {

@@ -3,14 +3,14 @@
 Startproject voor de leereenheid **React Native & AI** van de opleiding Software Development (DCTerra).
 
 > **Van Bas, lead developer:**
-> Welkom in het team! Dit is ons standaard startproject voor AI-apps. Inloggen werkt al, en je kunt al een vraag van je telefoon via onze backend naar de AI-server sturen. Al het werk voor jullie opdrachtgever staat als tickets in [BACKLOG.md](BACKLOG.md). Begin met ticket **ONB-1**: het project bij jezelf werkend krijgen. Succes! 🚀
+> Welkom in het team! Dit is ons standaard startproject voor AI-apps. Inloggen werkt al, en je kunt al vanuit de app een vraag via onze backend naar de AI-server sturen. Al het werk voor jullie opdrachtgever staat als tickets in [BACKLOG.md](BACKLOG.md). Begin met ticket **ONB-1**: het project bij jezelf werkend krijgen. Succes! 🚀
 
 ---
 
 ## Wat zit erin?
 
 ```
-app/   React Native-app (Expo)        → draait op je telefoon met Expo Go
+app/   React Native-app (Expo)        → draait in de Android-emulator
 api/   Laravel API (Sanctum)          → draait op je laptop
           │
           └──► AI-server van de opleiding (https://ai-pc.taile10d2b.ts.net/v1)
@@ -36,8 +36,26 @@ api/   Laravel API (Sanctum)          → draait op je laptop
 
 - PHP 8.3 of nieuwer en Composer
 - Node.js 20 of nieuwer
-- De app **Expo Go** op je telefoon (gratis, App Store of Play Store)
+- **Android Studio** met een Android-emulator (zie hieronder). Op een Mac kan ook de iOS-simulator uit Xcode.
 - Je **persoonlijke API-key** voor de AI-server (van je docent, begint met `sk-`)
+
+We werken in deze leereenheid in de **simulator**, niet op je eigen telefoon. Dan werkt het voor iedereen hetzelfde, ook op het schoolnetwerk.
+
+### 0. Eenmalig: de Android-emulator installeren
+
+1. Installeer [Android Studio](https://developer.android.com/studio) en doorloop de installatiewizard met de standaardinstellingen.
+2. Open Android Studio → **More Actions → Virtual Device Manager** → **Create Virtual Device**.
+3. Kies een toestel (bijvoorbeeld *Pixel 8*) en een systeemimage met de nieuwste Android-versie. Klik **Finish**.
+4. Start de emulator met de ▶-knop. Je ziet nu een Android-telefoon op je scherm.
+5. Zet de map `platform-tools` in je PATH, zodat Expo de emulator kan vinden:
+   - Windows: `%LOCALAPPDATA%\Android\Sdk\platform-tools`
+   - macOS: `~/Library/Android/sdk/platform-tools`
+
+   Controleer met `adb devices`: je emulator staat in de lijst.
+
+Expo zet de app **Expo Go** de eerste keer automatisch in de emulator. Die hoef je niet zelf te installeren.
+
+> Heb je een Mac? Dan kun je ook de iOS-simulator gebruiken: installeer Xcode uit de App Store, open hem één keer en druk straks op `i` in plaats van `a`.
 
 ### 1. De API starten
 
@@ -55,37 +73,33 @@ Open `api/.env` en vul je key in:
 AI_API_KEY=sk-jouw-eigen-key
 ```
 
-Start de server zo dat je telefoon erbij kan:
+Start de server en laat dit terminalvenster open:
 
 ```bash
-php artisan serve --host=0.0.0.0 --port=8000
+php artisan serve
 ```
 
 Controleer of alles werkt: `php artisan test` moet groen zijn.
 
 ### 2. De app starten
 
-Zoek eerst het IP-adres van je laptop in het wifi-netwerk:
-- Windows: `ipconfig` → *IPv4-adres*
-- macOS: `ipconfig getifaddr en0`
+Start eerst de emulator (Android Studio → Virtual Device Manager → ▶). Dan, in een **tweede** terminal:
 
 ```bash
 cd app
 npm install
-cp .env.example .env          # Windows: copy .env.example .env
-```
-
-Zet in `app/.env` het adres van **jullie API** (niet de AI-server):
-
-```
-EXPO_PUBLIC_API_URL=http://192.168.1.25:8000/api
-```
-
-```bash
 npx expo start
 ```
 
-Scan de QR-code met Expo Go (Android) of met de camera (iPhone). Registreer een account en stel je eerste vraag.
+Druk op **`a`**. Expo opent de app in de Android-emulator. Registreer een account en stel je eerste vraag.
+
+De app weet zelf hoe hij je Laravel-server bereikt: de Android-emulator gebruikt `http://10.0.2.2:8000/api` (10.0.2.2 is in de emulator het adres van je eigen laptop), de iOS-simulator `http://localhost:8000/api`. Een `.env` in `app/` is dus niet nodig.
+
+**Handig in de emulator:**
+- Toetsenbord van je laptop gebruiken: werkt direct in tekstvelden.
+- Herladen na een wijziging gaat vanzelf. Lukt dat niet: druk op `r` in de Expo-terminal.
+- Testfoto's in de galerij zetten: sleep een afbeelding vanaf je laptop op het emulatorvenster.
+- Ander schermformaat testen: maak in de Virtual Device Manager een tweede toestel aan, bijvoorbeeld een klein toestel of een tablet.
 
 ---
 
@@ -93,14 +107,14 @@ Scan de QR-code met Expo Go (Android) of met de camera (iPhone). Registreer een 
 
 | Wat je ziet | Oorzaak | Oplossing |
 | --- | --- | --- |
-| *Geen verbinding met de server* in de app | Telefoon kan je laptop niet bereiken | Zelfde wifi? `--host=0.0.0.0` gebruikt? Firewall van je laptop staat poort 8000 toe? |
-| Telefoon en laptop vinden elkaar niet op schoolwifi | Het netwerk laat apparaten niet met elkaar praten | Gebruik de Android-emulator (`EXPO_PUBLIC_API_URL=http://10.0.2.2:8000/api`) of een hotspot |
+| *Geen verbinding met de server* in de app | Laravel draait niet, of op een andere poort | Draait `php artisan serve` nog? Staat er *port 8000* in de terminal? |
+| Op `a` drukken doet niets / *No Android connected device found* | Emulator staat niet aan, of `adb` niet gevonden | Start eerst de emulator. Controleer `adb devices`; anders `platform-tools` aan je PATH toevoegen (stap 0) |
+| Emulator start niet of is extreem traag | Virtualisatie staat uit in de BIOS, of te weinig geheugen | Windows: zet *Virtualization* (Intel VT-x / AMD-V) aan in de BIOS en *Windows Hypervisor Platform* aan. Sluit andere zware programma's |
 | *AI_API_KEY ontbreekt in .env* | Key niet ingevuld | Vul `AI_API_KEY` in `api/.env` in en herstart `php artisan serve` |
 | *De API-key van de server klopt niet* | Fout in je key | Kopieer je key opnieuw, zonder spaties of aanhalingstekens |
 | *Het is even te druk* | Limiet bereikt | Wacht een minuut |
 | Eerste antwoord duurt erg lang | Er wordt een model geladen op de AI-server | Normaal na een modelwissel (20 tot 60 s) |
-| Expo Go zegt dat de SDK-versie niet klopt | Je Expo Go is ouder of nieuwer dan het project | Update Expo Go; het project gebruikt Expo SDK 58 |
-| `EXPO_PUBLIC_API_URL ontbreekt` | Geen `app/.env` | Doe stap 2 opnieuw en herstart `npx expo start` |
+| Expo Go in de emulator zegt dat de SDK-versie niet klopt | Er staat een oude Expo Go in de emulator | Verwijder Expo Go uit de emulator (lang indrukken → *App info → Uninstall*) en druk opnieuw op `a` |
 
 Endpoints testen zonder app? Gebruik Postman of curl:
 

@@ -8,7 +8,7 @@ Een ticket is klaar als:
 
 - [ ] de code in een pull request staat en door een teamgenoot is gereviewd;
 - [ ] `php artisan test` groen is (en er tests bij zijn voor nieuwe endpoints);
-- [ ] de app werkt op een echt toestel of de emulator;
+- [ ] de app werkt in de Android-emulator (en, als je een Mac hebt, ook in de iOS-simulator);
 - [ ] foutsituaties netjes worden afgevangen (geen crash, wel een begrijpelijke melding);
 - [ ] er geen API-key of `.env` in Git staat.
 
@@ -18,7 +18,7 @@ Een ticket is klaar als:
 
 ### ONB-1 · Project draaien
 Krijg API en app werkend volgens de README. Iedereen in het team doet dit op de eigen laptop.
-- **Klaar als:** je kunt inloggen op je telefoon, een vraag stellen en een antwoord krijgen. `GET /api/ai/status` geeft in Postman de beschikbare modellen.
+- **Klaar als:** je kunt in de emulator inloggen, een vraag stellen en een antwoord krijgen. `GET /api/ai/status` geeft in Postman de beschikbare modellen.
 
 ### ONB-2 · Code lezen
 Volg één vraag van het chatscherm tot de AI-server en terug. Teken de route: welke bestanden en functies komen voorbij?
@@ -69,7 +69,7 @@ Laat het antwoord woord voor woord verschijnen. Laravel stuurt Server-Sent Event
 - Voorbeeld van de logica: `app.py` in DCTerra-SD-chat.
 
 ### VD-2 · Foto's laten lezen (verdieping) — *Plantendokter, Brievenhulp*
-Foto maken of kiezen met `expo-image-picker` (met `base64: true`, verklein de foto eerst), meesturen naar Laravel en daar als `image_url` naar `qwen3.6:35b` sturen met `reasoning_effort: "none"`. Pas de validatie van `content` aan.
+Foto kiezen met `expo-image-picker` (`launchImageLibraryAsync` met `base64: true`, verklein de foto eerst). In de emulator zet je testfoto's in de galerij door ze vanaf je laptop op het emulatorvenster te slepen, meesturen naar Laravel en daar als `image_url` naar `qwen3.6:35b` sturen met `reasoning_effort: "none"`. Pas de validatie van `content` aan.
 - **Let op:** alleen voorbeeldfoto's en voorbeeldbrieven, nooit iets met echte persoonsgegevens. Vision-tests in de afgesproken tijdsblokken.
 
 ### VD-3 · Antwoorden uit eigen documenten (verdieping) — *Webshop-assistent*
