@@ -1,6 +1,6 @@
 # AI-app starter
 
-Startproject voor de leereenheid **React Native & AI** van de opleiding Software Development (DCTerra).
+Startproject voor de **standaardroute** van de leereenheid **Apps met AI** van de opleiding Software Development (DCTerra).
 
 > **Van Bas, lead developer:**
 > Welkom in het team! Dit is ons standaard startproject voor AI-apps. Inloggen werkt al, en je kunt al vanuit de app een vraag via onze backend naar de AI-server sturen. Al het werk voor jullie opdrachtgever staat als tickets in [BACKLOG.md](BACKLOG.md). Begin met ticket **ONB-1**: het project bij jezelf werkend krijgen. Succes! 🚀
@@ -27,6 +27,20 @@ api/   Laravel API (Sanctum)          → draait op je laptop
 ### De gouden regel
 
 **De API-key van de AI-server staat alleen in `api/.env`.** Nooit in de app, nooit in Git. Een app-bestand kan iedereen uitpakken. Daarom praat de app alleen met jullie eigen Laravel API, en die praat met de AI-server.
+
+---
+
+## Standaardroute of vrije route?
+
+Dit project is de **standaardstack** van het bureau: React Native (Expo) + Laravel. Past een andere stack beter bij jullie opdrachtgever? Dat mag, als jullie het in week 2 onderbouwen (ticket **ROUTE-1** in de backlog).
+
+| Je kiest | Wat je van dit project gebruikt |
+| --- | --- |
+| **Standaardroute** | Alles. Volg de stappen hieronder. |
+| **Andere app, zelfde backend**<br>(bijv. Flutter, Kotlin, Swift, .NET MAUI, web-app) | Alleen `api/`. Jullie app praat met de endpoints uit [docs/API.md](docs/API.md). |
+| **Helemaal eigen stack**<br>(bijv. Node, Python of C# als backend) | Niets, maar wel de afspraken: [docs/API.md](docs/API.md) laat zien wat je backend minimaal moet kunnen. `api/app/Services/AiService.php` is een voorbeeld van de koppeling met de AI-server; die werkt in elke taal hetzelfde. |
+
+Voor iedereen geldt: de API-key staat alleen in de backend, en jullie werken de tickets uit [BACKLOG.md](BACKLOG.md) af, vertaald naar jullie stack.
 
 ---
 

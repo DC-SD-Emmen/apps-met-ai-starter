@@ -2,15 +2,30 @@
 
 Zet deze tickets op jullie sprintbord (bijvoorbeeld GitHub Projects). Verdeel ze in het team en werk ze af in de volgorde van de sprints. Tickets met **(verdieping)** kies je passend bij jullie opdrachtgever.
 
+Kiezen jullie de **vrije route**? Dan gelden dezelfde tickets, vertaald naar jullie stack. `php artisan test` wordt dan de testopdracht van jullie eigen backend, `src/theme.js` het stijlbestand van jullie app, enzovoort.
+
 ## Definition of Done
 
 Een ticket is klaar als:
 
 - [ ] de code in een pull request staat en door een teamgenoot is gereviewd;
-- [ ] `php artisan test` groen is (en er tests bij zijn voor nieuwe endpoints);
-- [ ] de app werkt in de Android-emulator (en, als je een Mac hebt, ook in de iOS-simulator);
+- [ ] de backend-tests groen zijn (standaardroute: `php artisan test`), met tests voor nieuwe endpoints;
+- [ ] de app werkt in de emulator, simulator of browser die jullie gebruiken;
 - [ ] foutsituaties netjes worden afgevangen (geen crash, wel een begrijpelijke melding);
 - [ ] er geen API-key of `.env` in Git staat.
+
+---
+
+## Week 2 · Alleen voor de vrije route
+
+### ROUTE-1 · Keuzeonderbouwing
+Leg op maximaal één A4 vast:
+- welke stack jullie kiezen (app en backend);
+- waarom die beter past bij de opdrachtgever en de gebruiker;
+- wat jullie al kunnen en wat jullie nog moeten leren;
+- de risico's en hoe jullie die opvangen;
+- hoe jullie voldoen aan de vaste eisen: AI-server via eigen backend, key alleen in de backend, Git met pull requests, dezelfde basiseisen.
+- **Klaar als:** de docent de onderbouwing heeft goedgekeurd bij de sprintplanning.
 
 ---
 
@@ -18,6 +33,7 @@ Een ticket is klaar als:
 
 ### ONB-1 · Project draaien
 Krijg API en app werkend volgens de README. Iedereen in het team doet dit op de eigen laptop.
+*Vrije route:* zet jullie eigen project op met inloggen en één AI-vraag via de backend, volgens [docs/API.md](docs/API.md).
 - **Klaar als:** je kunt in de emulator inloggen, een vraag stellen en een antwoord krijgen. `GET /api/ai/status` geeft in Postman de beschikbare modellen.
 
 ### ONB-2 · Code lezen
