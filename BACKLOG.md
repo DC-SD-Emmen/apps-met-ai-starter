@@ -76,7 +76,7 @@ Een scherm met een `FlatList` van eerdere gesprekken, een knop *Nieuw gesprek* e
 
 ---
 
-## Sprint 3 · week 7 – 8 · Verdieping en testen
+## Sprint 3 · week 7 – 8 · Verdieping, testen en kwaliteit
 
 Kies **minstens één** verdieping die past bij jullie opdrachtgever.
 
@@ -99,12 +99,14 @@ Laat de AI een functie `bestelstatus(bestelnummer)` aanroepen die jullie API uit
 - **Prompttest:** 10 vragen die een echte gebruiker zou stellen, plus 3 pogingen om de AI iets te laten doen wat niet mag. Beoordeel elk antwoord (goed / matig / fout) en noteer wat je aanpast.
 - Testplan voor de app: wat gebeurt er zonder internet, bij een verlopen token, bij een heel lange vraag?
 
----
-
-## Sprint 4 · week 9 · Afronden
-
 ### KWAL-1 · Toegankelijkheid en verantwoord AI-gebruik
 Grotere tekst (systeeminstelling) breekt de layout niet, knoppen hebben `accessibilityLabel`s, en de app laat duidelijk zien dat antwoorden van AI komen en fouten kunnen bevatten.
+
+---
+
+## Week 9 · Afronden en opleveren
+
+Begin van de week verbeteren en documenteren, eind van de week opleveren.
 
 ### KWAL-2 · Verbetervoorstellen
 Maak op basis van het testrapport en de feedback van de opdrachtgever een lijst met verbetervoorstellen, geprioriteerd. Voer de belangrijkste door.
@@ -112,7 +114,5 @@ Maak op basis van het testrapport en de feedback van de opdrachtgever een lijst 
 ### DOC-1 · README voor de opdrachtgever
 Pas deze README aan voor jullie eigen app: wat doet hij, hoe installeer je hem, welke keuzes hebben jullie gemaakt?
 
----
-
-## Week 10 · Opleveren
-Demo bij de opdrachtgever, presentatie, reflectie. Zie de handleiding van de leereenheid.
+### OPL-1 · Opleveren
+Demo bij de opdrachtgever, presentatie aan de klas en reflectie. Zie de handleiding van de leereenheid.
